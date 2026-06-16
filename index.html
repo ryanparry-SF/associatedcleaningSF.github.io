@@ -1,0 +1,1595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Salesforce Partnership Review — Associated Cleaning</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy: #0D2340;
+      --navy-mid: #1A3A5C;
+      --teal: #00A3A3;
+      --teal-light: #00C8C8;
+      --teal-pale: #E6F7F7;
+      --slate: #4A6080;
+      --bg: #F0F4F8;
+      --white: #FFFFFF;
+      --border: #D6E0EC;
+      --text: #1A2B3C;
+      --text-muted: #5E738A;
+      --green: #16A34A;
+      --green-pale: #DCFCE7;
+      --amber: #D97706;
+      --amber-pale: #FEF3C7;
+      --red: #DC2626;
+      --red-pale: #FEE2E2;
+      --shadow-sm: 0 1px 3px rgba(13,35,64,0.08), 0 1px 2px rgba(13,35,64,0.04);
+      --shadow-md: 0 4px 16px rgba(13,35,64,0.10), 0 2px 6px rgba(13,35,64,0.06);
+      --shadow-lg: 0 10px 40px rgba(13,35,64,0.12), 0 4px 12px rgba(13,35,64,0.08);
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; font-size: 15px; }
+
+    /* ─── MAIN CONTENT ─── */
+
+    /* ─── NAV ─── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(13,35,64,0.97);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .nav-inner {
+      max-width: 1180px; margin: 0 auto; padding: 0 32px;
+      display: flex; align-items: center; justify-content: space-between; height: 62px;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo-icon {
+      width: 32px; height: 32px;
+      background: linear-gradient(135deg, var(--teal), #007A7A);
+      border-radius: 8px; display: flex; align-items: center; justify-content: center;
+    }
+    .nav-logo-icon svg { width: 18px; height: 18px; }
+    .nav-logo-text { font-size: 13.5px; font-weight: 700; color: rgba(255,255,255,0.92); }
+    .nav-logo-sub { font-size: 11px; color: rgba(255,255,255,0.38); letter-spacing: 0.03em; margin-top: -1px; }
+    .nav-links { display: flex; gap: 2px; list-style: none; align-items: center; }
+    .nav-links a {
+      display: block; padding: 7px 14px; border-radius: 7px;
+      font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.58);
+      text-decoration: none; transition: all 0.15s;
+    }
+    .nav-links a:hover { color: white; background: rgba(255,255,255,0.07); }
+    .nav-links a.active { color: var(--teal-light); background: rgba(0,163,163,0.12); }
+    .nav-badge {
+      font-size: 11px; background: rgba(0,163,163,0.18);
+      border: 1px solid rgba(0,163,163,0.3);
+      color: var(--teal-light); padding: 3px 10px;
+      border-radius: 20px; font-weight: 600; letter-spacing: 0.02em;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      background: linear-gradient(160deg, #071524 0%, var(--navy) 40%, #0A3D3D 100%);
+      padding: 80px 32px 72px; position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; top: -80px; right: -60px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(0,163,163,0.15) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: ''; position: absolute; bottom: -80px; left: 25%;
+      width: 700px; height: 400px;
+      background: radial-gradient(ellipse, rgba(0,163,163,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner { max-width: 1180px; margin: 0 auto; position: relative; z-index: 1; }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(0,163,163,0.12); border: 1px solid rgba(0,163,163,0.25);
+      border-radius: 20px; padding: 5px 14px;
+      font-size: 11.5px; font-weight: 700; color: var(--teal-light);
+      letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 28px;
+    }
+    .hero-eyebrow-dot {
+      width: 6px; height: 6px; background: var(--teal-light);
+      border-radius: 50%; animation: pulse 2.5s infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.75)} }
+    .hero-wordmark { display: flex; align-items: center; gap: 20px; margin-bottom: 36px; }
+    .wordmark-logo {
+      width: 72px; height: 72px;
+      background: linear-gradient(135deg, var(--teal) 0%, #006E6E 100%);
+      border-radius: 18px; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 8px 32px rgba(0,163,163,0.35); flex-shrink: 0;
+    }
+    .wordmark-logo svg { width: 38px; height: 38px; }
+    .wordmark-text h1 {
+      font-size: 40px; font-weight: 900; color: white;
+      letter-spacing: -0.03em; line-height: 1.05;
+    }
+    .wordmark-text p { font-size: 14px; color: rgba(255,255,255,0.45); margin-top: 6px; letter-spacing: 0.02em; }
+    .hero-divider { width: 48px; height: 2px; background: rgba(255,255,255,0.1); margin: 28px 0; }
+    .hero-meta { display: flex; gap: 36px; flex-wrap: wrap; }
+    .hero-meta-item { display: flex; flex-direction: column; gap: 3px; }
+    .hero-meta-label { font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.35); letter-spacing: 0.09em; text-transform: uppercase; }
+    .hero-meta-value { font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.82); }
+
+    /* ─── SECTIONS ─── */
+    .section { max-width: 1180px; margin: 0 auto; padding: 64px 32px; }
+    .section-header { margin-bottom: 40px; }
+    .section-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--teal); margin-bottom: 10px;
+    }
+    .section-tag-line { width: 20px; height: 2px; background: var(--teal); border-radius: 1px; }
+    .section-title { font-size: 28px; font-weight: 800; color: var(--navy); letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 10px; }
+    .section-subtitle { font-size: 15px; color: var(--text-muted); max-width: 580px; line-height: 1.65; }
+    .section-divider { height: 1px; background: var(--border); }
+
+    /* ─── STATS ─── */
+    .summary-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 40px; }
+    .stat-card {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 22px 20px;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .stat-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+    .stat-card-icon { width: 38px; height: 38px; border-radius: 9px; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; }
+    .stat-card-icon svg { width: 20px; height: 20px; }
+    .stat-card-label { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
+    .stat-card-value { font-size: 30px; font-weight: 900; color: var(--navy); letter-spacing: -0.03em; line-height: 1; }
+    .stat-card-sub { font-size: 12px; color: var(--text-muted); margin-top: 5px; }
+
+    /* ─── LICENSE TABLE ─── */
+    .license-table-wrap {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius); box-shadow: var(--shadow-sm); overflow: hidden;
+    }
+    .license-table-header {
+      padding: 18px 24px; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .license-table-header h3 { font-size: 14px; font-weight: 700; color: var(--navy); }
+    .license-table { width: 100%; border-collapse: collapse; }
+    .license-table thead th {
+      background: #F8FAFB; padding: 11px 18px;
+      font-size: 10.5px; font-weight: 700; letter-spacing: 0.07em;
+      text-transform: uppercase; color: var(--text-muted);
+      text-align: left; border-bottom: 1px solid var(--border);
+    }
+    .license-table thead th.right { text-align: right; }
+    .license-table tbody td {
+      padding: 15px 18px; font-size: 13px; color: var(--text);
+      border-bottom: 1px solid #F0F4F8; vertical-align: middle;
+    }
+    .license-table tbody td.right { text-align: right; }
+    .license-table tbody tr:last-child td { border-bottom: none; }
+    .license-table tbody tr:hover td { background: #FAFCFF; }
+    .license-name-cell { display: flex; align-items: center; gap: 12px; }
+    .license-icon { width: 36px; height: 36px; border-radius: 9px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .license-icon svg { width: 18px; height: 18px; }
+    .lname { font-weight: 600; color: var(--navy); font-size: 13px; }
+    .lsub { font-size: 11.5px; color: var(--text-muted); margin-top: 2px; }
+    .ltotal { font-weight: 700; color: var(--navy); font-size: 14px; }
+    .lunit { font-size: 11.5px; color: var(--text-muted); margin-top: 2px; }
+
+    /* badges */
+    .badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 3px 10px; border-radius: 20px;
+      font-size: 11px; font-weight: 700; white-space: nowrap;
+    }
+    .badge-dot { width: 6px; height: 6px; border-radius: 50%; }
+    .badge-green { background: var(--green-pale); color: #15803D; }
+    .badge-green .badge-dot { background: #16A34A; }
+    .badge-teal { background: var(--teal-pale); color: #00696A; }
+    .badge-teal .badge-dot { background: var(--teal); }
+    .badge-blue { background: #EFF6FF; color: #1D4ED8; }
+    .badge-orange { background: #FFF7ED; color: #C2410C; }
+
+    /* ─── ORDER DETAIL EXPANDER ─── */
+    .orders-toggle {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 11.5px; color: var(--teal); font-weight: 600;
+      cursor: pointer; background: none; border: none; padding: 0; margin-top: 4px;
+      text-decoration: none; font-family: inherit;
+    }
+    .orders-toggle svg { width: 12px; height: 12px; fill: var(--teal); transition: transform 0.2s; }
+    .orders-toggle.open svg { transform: rotate(90deg); }
+    .orders-detail {
+      display: none; margin-top: 10px;
+      background: #F8FAFB; border: 1px solid var(--border);
+      border-radius: 8px; overflow: hidden;
+    }
+    .orders-detail.show { display: block; }
+    .order-row {
+      display: grid; grid-template-columns: 110px 60px 1fr 100px 90px;
+      gap: 12px; padding: 9px 14px;
+      font-size: 11.5px; border-bottom: 1px solid #EEF1F5;
+      align-items: center;
+    }
+    .order-row:last-child { border-bottom: none; }
+    .order-row.head {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.06em;
+      text-transform: uppercase; color: var(--text-muted);
+      background: #F0F3F7;
+    }
+    .order-row span { color: var(--text); }
+    .order-row .order-num { font-weight: 600; color: var(--navy); }
+
+    /* ─── CONTRACT INFO ─── */
+    .contract-info { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 24px; }
+    .info-card { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; }
+    .info-card h4 { font-size: 11px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 14px; }
+    .info-row { display: flex; justify-content: space-between; align-items: center; padding: 9px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+    .info-row:last-child { border-bottom: none; }
+    .info-row-label { color: var(--text-muted); }
+    .info-row-value { font-weight: 600; color: var(--text); }
+
+    /* ─── RENEWAL ALERT ─── */
+    .renewal-highlight {
+      background: linear-gradient(135deg, rgba(0,163,163,0.07), rgba(0,163,163,0.02));
+      border: 1px solid rgba(0,163,163,0.2);
+      border-radius: var(--radius); padding: 20px 24px;
+      display: flex; align-items: center; gap: 16px; margin-top: 24px;
+    }
+    .renewal-icon {
+      width: 44px; height: 44px; background: var(--teal-pale); border-radius: 10px;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .renewal-icon svg { width: 22px; height: 22px; fill: var(--teal); }
+    .renewal-text strong { font-size: 14px; font-weight: 700; color: var(--navy); display: block; margin-bottom: 3px; }
+    .renewal-text span { font-size: 13px; color: var(--text-muted); line-height: 1.55; }
+
+    /* ─── PROPOSALS ─── */
+    .proposal-tabs {
+      display: flex; gap: 8px; margin-bottom: 36px;
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 10px; padding: 5px; width: fit-content;
+    }
+    .tab-btn {
+      padding: 9px 22px; border-radius: 7px;
+      font-size: 13px; font-weight: 600;
+      border: none; cursor: pointer; background: transparent;
+      color: var(--text-muted); transition: all 0.18s; font-family: inherit;
+    }
+    .tab-btn:hover { color: var(--navy); background: var(--bg); }
+    .tab-btn.active { background: var(--navy); color: white; box-shadow: var(--shadow-sm); }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    .proposal-grid { display: grid; grid-template-columns: 1fr 360px; gap: 24px; align-items: start; }
+    .proposal-main { display: flex; flex-direction: column; gap: 24px; }
+
+    /* prop hero */
+    .prop-hero-card { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-md); }
+    .prop-hero-header {
+      background: linear-gradient(140deg, #071524 0%, var(--navy) 60%, #0A3A3A 100%);
+      padding: 36px; position: relative; overflow: hidden;
+    }
+    .prop-hero-header::before {
+      content: ''; position: absolute; top: -40px; right: -40px;
+      width: 240px; height: 240px;
+      background: radial-gradient(circle, rgba(0,163,163,0.18) 0%, transparent 70%);
+    }
+    .prop-hero-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(0,163,163,0.15); border: 1px solid rgba(0,163,163,0.3);
+      border-radius: 16px; padding: 4px 12px;
+      font-size: 10.5px; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--teal-light); margin-bottom: 16px;
+    }
+    .prop-hero-title { font-size: 26px; font-weight: 800; color: white; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 12px; }
+    .prop-hero-desc { font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.65; max-width: 500px; }
+    .prop-hero-body { background: var(--white); padding: 28px 32px; }
+
+    /* benefits */
+    .benefits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .benefit-card {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 18px;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .benefit-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+    .benefit-icon { width: 38px; height: 38px; border-radius: 9px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
+    .benefit-icon svg { width: 20px; height: 20px; }
+    .benefit-card h4 { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 5px; }
+    .benefit-card p { font-size: 12.5px; color: var(--text-muted); line-height: 1.5; }
+
+    /* colour helpers */
+    .bg-teal   { background: var(--teal-pale); } .bg-teal svg { fill: var(--teal); }
+    .bg-blue   { background: #EFF6FF; }          .bg-blue svg { fill: #3B82F6; }
+    .bg-purple { background: #F5F3FF; }          .bg-purple svg { fill: #7C3AED; }
+    .bg-green  { background: var(--green-pale); } .bg-green svg { fill: var(--green); }
+    .bg-amber  { background: var(--amber-pale); } .bg-amber svg { fill: var(--amber); }
+    .bg-rose   { background: #FFF1F2; }           .bg-rose svg { fill: #E11D48; }
+
+    /* case card */
+    .case-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; box-shadow: var(--shadow-sm); }
+    .case-card h3 { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 18px; display: flex; align-items: center; gap: 9px; }
+    .case-card h3 .ic { width: 28px; height: 28px; background: var(--teal-pale); border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .case-card h3 .ic svg { width: 15px; height: 15px; fill: var(--teal); }
+    .case-point { display: flex; gap: 11px; margin-bottom: 14px; font-size: 13.5px; }
+    .case-point:last-child { margin-bottom: 0; }
+    .cp-dot { width: 20px; height: 20px; background: var(--teal-pale); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+    .cp-dot svg { width: 10px; height: 10px; fill: var(--teal); }
+    .cp-text { color: var(--text-muted); line-height: 1.6; }
+    .cp-text strong { color: var(--text); }
+
+    /* sidebar */
+    .sidebar { display: flex; flex-direction: column; gap: 20px; }
+    .pricing-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow-md); overflow: hidden; }
+    .pricing-card-header { background: var(--navy); padding: 24px; }
+    .pricing-card-header p { font-size: 10.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 6px; }
+    .pricing-card-header h3 { font-size: 18px; font-weight: 800; color: white; line-height: 1.25; }
+    .pricing-card-body { padding: 22px; }
+    .pricing-tier {
+      background: linear-gradient(135deg, var(--teal-pale), rgba(0,163,163,0.03));
+      border: 1px solid rgba(0,163,163,0.2); border-radius: var(--radius-sm);
+      padding: 14px 16px; margin-bottom: 16px;
+    }
+    .pricing-tier-label { font-size: 10.5px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--teal); margin-bottom: 6px; }
+    .pricing-tier-name { font-size: 15px; font-weight: 800; color: var(--navy); margin-bottom: 3px; }
+    .pricing-tier-desc { font-size: 12px; color: var(--text-muted); }
+    .pricing-row { display: flex; justify-content: space-between; align-items: center; padding: 9px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+    .pricing-row:last-child { border-bottom: none; }
+    .pricing-row-label { color: var(--text-muted); }
+    .pricing-row-value { font-weight: 700; color: var(--navy); }
+    .pricing-row-value.teal { color: var(--teal); }
+    .cta-button {
+      display: block; width: 100%; padding: 13px;
+      background: var(--teal); color: white;
+      font-size: 14px; font-weight: 700; border: none; border-radius: var(--radius-sm);
+      cursor: pointer; text-align: center; text-decoration: none;
+      margin-top: 18px; transition: background 0.15s, transform 0.1s;
+      letter-spacing: 0.01em; font-family: inherit;
+    }
+    .cta-button:hover { background: #008080; transform: translateY(-1px); }
+    .cta-button-outline {
+      background: transparent; color: var(--teal);
+      border: 2px solid var(--teal); margin-top: 8px;
+    }
+    .cta-button-outline:hover { background: var(--teal-pale); }
+
+    /* compare */
+    .compare-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); }
+    .compare-card-header { padding: 14px 18px; border-bottom: 1px solid var(--border); }
+    .compare-card-header h4 { font-size: 13px; font-weight: 700; color: var(--navy); }
+    .compare-row { display: grid; grid-template-columns: 1fr 72px 72px; gap: 8px; padding: 9px 18px; font-size: 12.5px; border-bottom: 1px solid #F5F7FA; align-items: center; }
+    .compare-row:last-child { border-bottom: none; }
+    .compare-row.head { background: #F8FAFB; font-size: 10px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--text-muted); }
+    .compare-col { text-align: center; }
+    .chk { color: var(--green); font-size: 15px; }
+    .crs { color: #CBD5E1; font-size: 15px; }
+    .compare-hl { color: var(--teal); font-weight: 700; }
+
+    /* highlight stat card */
+    .highlight-card { background: linear-gradient(140deg, var(--navy), #0A3A3A); border-radius: var(--radius); padding: 24px; }
+    .highlight-card h4 { font-size: 14px; font-weight: 700; color: white; margin-bottom: 6px; }
+    .highlight-card p { font-size: 12.5px; color: rgba(255,255,255,0.5); line-height: 1.55; margin-bottom: 16px; }
+    .hl-stats { display: flex; gap: 12px; }
+    .hl-stat { flex: 1; text-align: center; background: rgba(255,255,255,0.06); border-radius: 8px; padding: 12px 6px; }
+    .hl-val { font-size: 20px; font-weight: 900; color: var(--teal-light); letter-spacing: -0.02em; }
+    .hl-lbl { font-size: 10.5px; color: rgba(255,255,255,0.38); margin-top: 3px; }
+
+    /* features */
+    .features-list { display: flex; flex-direction: column; gap: 12px; }
+    .feature-item {
+      display: flex; align-items: flex-start; gap: 14px;
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 16px;
+      transition: background 0.15s;
+    }
+    .feature-item:hover { background: #E8EEF5; }
+    .feature-item-icon { width: 40px; height: 40px; border-radius: 9px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .feature-item-icon svg { width: 20px; height: 20px; }
+    .feature-item-content h4 { font-size: 13.5px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+    .feature-item-content p { font-size: 12.5px; color: var(--text-muted); line-height: 1.5; }
+
+    /* ─── FOOTER ─── */
+    .footer { background: var(--navy); padding: 40px 32px; }
+    .footer-inner { max-width: 1180px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+    .footer-left p { font-size: 13px; color: rgba(255,255,255,0.38); line-height: 1.65; }
+    .footer-left strong { color: rgba(255,255,255,0.7); }
+    .footer-right { display: flex; align-items: center; gap: 10px; }
+    .footer-sf-badge { display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 8px 14px; font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.45); }
+    .footer-sf-badge svg { width: 18px; height: 18px; fill: rgba(255,255,255,0.35); }
+
+    /* ─── SCROLL REVEAL ─── */
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.5s ease, transform 0.5s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ─── CO-TERM TOGGLE ─── */
+    .coterm-bar {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 18px 22px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; margin-bottom: 28px; flex-wrap: wrap;
+      box-shadow: var(--shadow-sm);
+    }
+    .coterm-bar-left { display: flex; align-items: center; gap: 14px; }
+    .coterm-icon-wrap {
+      width: 40px; height: 40px; background: var(--amber-pale);
+      border-radius: 9px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .coterm-icon-wrap svg { width: 20px; height: 20px; fill: var(--amber); }
+    .coterm-bar-title { font-size: 13.5px; font-weight: 700; color: var(--navy); }
+    .coterm-bar-desc { font-size: 12px; color: var(--text-muted); margin-top: 2px; line-height: 1.45; }
+    .coterm-controls { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .coterm-lbl { font-size: 12.5px; font-weight: 600; color: var(--text-muted); transition: color 0.2s; white-space: nowrap; }
+    .coterm-lbl.active { color: var(--navy); }
+    .toggle-sw {
+      position: relative; width: 50px; height: 28px;
+      background: #CBD5E1; border-radius: 14px; cursor: pointer;
+      border: none; padding: 0; transition: background 0.22s; flex-shrink: 0;
+    }
+    .toggle-sw.on { background: var(--teal); }
+    .toggle-thumb {
+      position: absolute; top: 4px; left: 4px;
+      width: 20px; height: 20px; background: white;
+      border-radius: 50%; transition: transform 0.22s;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.18);
+    }
+    .toggle-sw.on .toggle-thumb { transform: translateX(22px); }
+    .coterm-pill {
+      display: none; align-items: center; gap: 5px;
+      background: var(--amber-pale); border: 1px solid #FDE68A;
+      border-radius: 20px; padding: 4px 12px;
+      font-size: 12px; font-weight: 700; color: var(--amber); white-space: nowrap;
+    }
+    .coterm-pill.show { display: inline-flex; }
+    .coterm-pill svg { width: 13px; height: 13px; fill: var(--amber); }
+    /* dynamic price elements */
+    .pv { transition: color 0.2s; }
+    .pv.ct { color: var(--amber) !important; }
+    .pv-suffix { transition: color 0.2s; font-size: 11px; color: var(--text-muted); margin-left: 2px; }
+    .pv-suffix.ct { color: var(--amber) !important; }
+    .coterm-row { display: none; }
+    .coterm-row.show { display: flex; }
+
+    /* ─── EARLY RENEWAL GRID ─── */
+    .renewal-year-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-bottom: 24px; }
+    .year-card { background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); transition: transform 0.15s, box-shadow 0.15s; display: flex; flex-direction: column; }
+    .year-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+    .year-card.recommended { border-color: var(--teal); box-shadow: 0 0 0 1px var(--teal), var(--shadow-md); }
+    .year-card-header { padding: 22px 22px 18px; }
+    .year-card-header.y1 { background: #F4F7FA; }
+    .year-card-header.y2 { background: var(--navy-mid); }
+    .year-card-header.y3 { background: var(--navy); }
+    .year-card-label { font-size: 10.5px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
+    .year-card-label.light { color: rgba(255,255,255,0.45); }
+    .year-card-title { font-size: 28px; font-weight: 900; color: var(--navy); letter-spacing: -0.03em; line-height: 1; }
+    .year-card-title.light { color: white; }
+    .year-card-period { font-size: 12px; color: var(--text-muted); margin-top: 5px; }
+    .year-card-period.light { color: rgba(255,255,255,0.45); }
+    .rec-badge { display: inline-flex; align-items: center; gap: 5px; background: var(--teal); color: white; font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 20px; margin-top: 10px; }
+    .year-card-body { padding: 18px 22px; flex: 1; display: flex; flex-direction: column; }
+    .year-price-block { background: var(--bg); border-radius: 9px; padding: 14px 16px; margin-bottom: 16px; }
+    .year-price-label { font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-muted); margin-bottom: 4px; }
+    .year-price-val { font-size: 24px; font-weight: 900; color: var(--navy); letter-spacing: -0.02em; }
+    .year-price-val span { font-size: 12px; font-weight: 500; color: var(--text-muted); }
+    .year-total-val { font-size: 14px; font-weight: 700; color: var(--teal); margin-top: 4px; }
+    .year-perk { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 9px; font-size: 12.5px; color: var(--text-muted); }
+    .year-perk-dot { width: 17px; height: 17px; background: var(--teal-pale); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+    .year-perk-dot svg { width: 9px; height: 9px; fill: var(--teal); }
+    .year-perk strong { color: var(--text); }
+    .year-cta { display: block; width: 100%; padding: 12px; background: var(--bg); border: 1.5px solid var(--border); color: var(--navy); font-size: 13px; font-weight: 700; border-radius: var(--radius-sm); cursor: pointer; text-align: center; text-decoration: none; margin-top: auto; padding-top: 12px; transition: all 0.15s; font-family: inherit; }
+    .year-cta:hover { background: #E8EEF5; }
+    .year-cta.primary { background: var(--teal); color: white; border-color: var(--teal); }
+    .year-cta.primary:hover { background: #008080; }
+    .no-uplift-banner { display: flex; align-items: center; gap: 14px; background: var(--green-pale); border: 1px solid #BBF7D0; border-radius: var(--radius); padding: 16px 20px; margin-bottom: 20px; }
+    .no-uplift-icon { width: 38px; height: 38px; background: #D1FAE5; border-radius: 9px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .no-uplift-icon svg { width: 20px; height: 20px; fill: var(--green); }
+    .no-uplift-text strong { font-size: 13.5px; font-weight: 700; color: #15803D; display: block; margin-bottom: 2px; }
+    .no-uplift-text span { font-size: 12.5px; color: #16A34A; line-height: 1.5; }
+    .sku-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .sku-table th { background: #F8FAFB; padding: 9px 16px; font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); text-align: left; border-bottom: 1px solid var(--border); }
+    .sku-table th.right { text-align: right; }
+    .sku-table td { padding: 12px 16px; border-bottom: 1px solid #F0F4F8; vertical-align: middle; }
+    .sku-table td.right { text-align: right; font-weight: 700; }
+    .sku-table tr:last-child td { border-bottom: none; font-weight: 700; background: #F8FAFB; }
+    .sku-new { background: var(--teal-pale); color: var(--teal); font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 10px; margin-left: 6px; vertical-align: middle; }
+    .lock-pill { display: inline-flex; align-items: center; gap: 4px; background: var(--green-pale); color: #15803D; font-size: 10.5px; font-weight: 700; padding: 2px 8px; border-radius: 10px; }
+    .lock-pill svg { width: 10px; height: 10px; fill: #16A34A; }
+
+    /* ─── SAVINGS COMPARISON ─── */
+    .savings-compare { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-md); margin-bottom: 20px; }
+    .sc-header { background: linear-gradient(135deg, #0D2340, #0A3A3A); padding: 18px 24px; display: flex; align-items: center; gap: 14px; }
+    .sc-header-icon { width: 40px; height: 40px; background: rgba(255,255,255,0.08); border-radius: 9px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .sc-header-icon svg { width: 20px; height: 20px; fill: var(--teal-light); }
+    .sc-header-text strong { font-size: 14px; font-weight: 700; color: white; display: block; }
+    .sc-header-text span { font-size: 12px; color: rgba(255,255,255,0.5); }
+    .sc-body { padding: 22px; }
+    .sc-assumption { display: flex; align-items: center; gap: 8px; background: var(--amber-pale); border: 1px solid #FDE68A; border-radius: 8px; padding: 10px 14px; margin-bottom: 18px; font-size: 12.5px; color: #92400E; }
+    .sc-assumption svg { width: 16px; height: 16px; fill: var(--amber); flex-shrink: 0; }
+    .sc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 20px; }
+    .sc-card { border-radius: var(--radius-sm); padding: 18px; }
+    .sc-card-a { background: #FFF5F5; border: 1.5px solid #FECACA; }
+    .sc-card-b { background: var(--green-pale); border: 1.5px solid #BBF7D0; }
+    .sc-path-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; margin-bottom: 4px; }
+    .sc-card-a .sc-path-tag { color: #DC2626; }
+    .sc-card-b .sc-path-tag { color: #15803D; }
+    .sc-path-title { font-size: 13.5px; font-weight: 700; color: var(--navy); margin-bottom: 14px; line-height: 1.3; }
+    .sc-line { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; padding: 7px 0; border-bottom: 1px solid rgba(0,0,0,0.06); font-size: 12.5px; }
+    .sc-line:last-child { border-bottom: none; padding-bottom: 0; }
+    .sc-line-label { color: var(--text-muted); line-height: 1.4; }
+    .sc-line-val { font-weight: 700; white-space: nowrap; flex-shrink: 0; }
+    .val-bad  { color: #DC2626; }
+    .val-good { color: #15803D; }
+    .val-neutral { color: var(--navy); }
+    .sc-divider { height: 1px; background: var(--border); margin: 0 0 18px; }
+    .sc-savings-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .sc-saving-card { border-radius: var(--radius-sm); padding: 14px 12px; text-align: center; border: 1px solid var(--border); background: var(--bg); }
+    .sc-saving-card.hl { background: linear-gradient(135deg, var(--teal-pale), rgba(0,163,163,0.03)); border-color: rgba(0,163,163,0.25); }
+    .sc-saving-term { font-size: 10.5px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; }
+    .sc-saving-val { font-size: 24px; font-weight: 900; color: var(--teal); letter-spacing: -0.02em; line-height: 1; }
+    .sc-saving-lbl { font-size: 11.5px; color: var(--text-muted); margin-top: 5px; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 980px) {
+      .proposal-grid { grid-template-columns: 1fr; }
+      .sidebar { display: grid; grid-template-columns: 1fr 1fr; }
+      .renewal-year-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .summary-stats { grid-template-columns: 1fr 1fr; }
+      .contract-info { grid-template-columns: 1fr; }
+      .benefits-grid { grid-template-columns: 1fr; }
+      .wordmark-text h1 { font-size: 26px; }
+      .nav-links { display: none; }
+      .sidebar { grid-template-columns: 1fr; }
+      .pw-card { padding: 36px 28px; }
+    }
+    @media (max-width: 480px) {
+      .summary-stats { grid-template-columns: 1fr; }
+      .section { padding: 40px 20px; }
+      .hero { padding: 48px 20px 52px; }
+      .order-row { grid-template-columns: 90px 40px 1fr; }
+      .order-row .hide-sm { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="main-content" style="display:block">
+
+<!-- ─── NAV ─── -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <div class="nav-logo-icon">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div>
+        <div class="nav-logo-text">Associated Cleaning</div>
+        <div class="nav-logo-sub">Salesforce Partnership Review</div>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#licensing">Licensing</a></li>
+      <li><a href="#proposals">Proposals</a></li>
+      <li><span class="nav-badge">Confidential</span></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-dot"></div>
+      Strategic Partnership Review · Q3 2026
+    </div>
+    <div class="hero-wordmark">
+      <div class="wordmark-logo">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10 30L20 10L30 30" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M13.5 23.5H26.5" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="20" cy="10" r="2.5" fill="white"/>
+          <path d="M30 15L32 13M10 15L8 13" stroke="rgba(255,255,255,0.55)" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="wordmark-text">
+        <h1>Associated Cleaning</h1>
+        <p>Salesforce Licensing Overview &amp; Growth Proposals</p>
+      </div>
+    </div>
+    <div class="hero-divider"></div>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Account Executive</span>
+        <span class="hero-meta-value">Ryan Parry · Salesforce</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Presented to</span>
+        <span class="hero-meta-value">Associated Cleaning Leadership</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Prepared</span>
+        <span class="hero-meta-value">June 2026</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Contract</span>
+        <span class="hero-meta-value">04175609</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── LICENSING ─── -->
+<div style="background: white;">
+<div class="section" id="licensing">
+
+  <div class="section-header reveal">
+    <div class="section-tag"><div class="section-tag-line"></div> Current State</div>
+    <h2 class="section-title">Licensing Overview</h2>
+    <p class="section-subtitle">A complete summary of your active Salesforce contracts, seat allocations, billing terms, and upcoming renewal milestones as at June 2026.</p>
+  </div>
+
+  <!-- Stats -->
+  <div class="summary-stats reveal">
+    <div class="stat-card">
+      <div class="stat-card-icon bg-teal">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke="#00A3A3" stroke-width="2" stroke-linecap="round"/><circle cx="9" cy="7" r="4" stroke="#00A3A3" stroke-width="2"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke="#00A3A3" stroke-width="2" stroke-linecap="round"/></svg>
+      </div>
+      <div class="stat-card-label">Named Users</div>
+      <div class="stat-card-value">17</div>
+      <div class="stat-card-sub">Sales &amp; Service Cloud</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-icon bg-blue">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke="#3B82F6" stroke-width="2" stroke-linecap="round"/><circle cx="9" cy="7" r="4" stroke="#3B82F6" stroke-width="2"/><path d="M22 11h-6m3-3v6" stroke="#3B82F6" stroke-width="2" stroke-linecap="round"/></svg>
+      </div>
+      <div class="stat-card-label">Community Members</div>
+      <div class="stat-card-value">70</div>
+      <div class="stat-card-sub">Community Plus Enterprise</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-icon bg-green">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#16A34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="stat-card-label">Annual Run Rate</div>
+      <div class="stat-card-value" style="font-size:22px;padding-top:4px;">A$44,512</div>
+      <div class="stat-card-sub">Across all products</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-icon bg-amber">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#D97706" stroke-width="2"/><path d="M12 6v6l4 2" stroke="#D97706" stroke-width="2" stroke-linecap="round"/></svg>
+      </div>
+      <div class="stat-card-label">Days to Renewal</div>
+      <div class="stat-card-value">227</div>
+      <div class="stat-card-sub">29 January 2027</div>
+    </div>
+  </div>
+
+  <!-- Licence Table -->
+  <div class="license-table-wrap reveal">
+    <div class="license-table-header">
+      <h3>Active Licence Detail</h3>
+      <span class="badge badge-green"><span class="badge-dot"></span> All Products Active</span>
+    </div>
+    <table class="license-table">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Qty</th>
+          <th class="right">Unit Price</th>
+          <th class="right">Annual Value</th>
+          <th>Period</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Sales & Service Cloud -->
+        <tr>
+          <td>
+            <div class="license-name-cell">
+              <div class="license-icon bg-blue"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7H4a2 2 0 00-2 2v6a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z" stroke="#3B82F6" stroke-width="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16" stroke="#3B82F6" stroke-width="2"/></svg></div>
+              <div>
+                <div class="lname">Sales &amp; Service Cloud</div>
+                <div class="lsub">Enterprise Edition</div>
+                <button class="orders-toggle" id="tog-ss" onclick="toggleOrders('ss', this)">
+                  <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+                  5 separate orders
+                </button>
+              </div>
+            </div>
+            <!-- Order detail -->
+            <div class="orders-detail" id="od-ss">
+              <div class="order-row head"><span>Order #</span><span>Qty</span><span>Start Date</span><span class="hide-sm">Unit Price</span><span class="hide-sm">Contract Val.</span></div>
+              <div class="order-row"><span class="order-num">31065195</span><span>12</span><span>30 Jan 2025</span><span class="hide-sm">A$151.90/mo</span><span class="hide-sm">A$43,747</span></div>
+              <div class="order-row"><span class="order-num">33714473</span><span>2</span><span>20 Oct 2025</span><span class="hide-sm">A$151.90/mo</span><span class="hide-sm">A$7,291</span></div>
+              <div class="order-row"><span class="order-num">34797037</span><span>1</span><span>28 Jan 2026</span><span class="hide-sm">A$151.90/mo</span><span class="hide-sm">A$3,646</span></div>
+              <div class="order-row"><span class="order-num">34968646</span><span>1</span><span>9 Feb 2026</span><span class="hide-sm">A$151.90/mo</span><span class="hide-sm">A$3,646</span></div>
+              <div class="order-row"><span class="order-num">36122323</span><span>1</span><span>26 May 2026</span><span class="hide-sm">A$151.90/mo</span><span class="hide-sm">A$3,646</span></div>
+            </div>
+          </td>
+          <td style="font-weight:700;font-size:16px;">17</td>
+          <td class="right"><div class="ltotal">A$151.90</div><div class="lunit">per user / month</div></td>
+          <td class="right"><div class="ltotal">A$30,988</div><div class="lunit">per year</div></td>
+          <td style="font-size:12.5px;">Various starts<br/>→ 29 Jan 2027</td>
+          <td><span class="badge badge-green"><span class="badge-dot"></span> Active</span></td>
+        </tr>
+        <!-- Community Plus -->
+        <tr>
+          <td>
+            <div class="license-name-cell">
+              <div class="license-icon bg-teal"><svg viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke="#00A3A3" stroke-width="2"/><circle cx="9" cy="7" r="4" stroke="#00A3A3" stroke-width="2"/><path d="M22 11h-6m3-3v6" stroke="#00A3A3" stroke-width="2" stroke-linecap="round"/></svg></div>
+              <div>
+                <div class="lname">Customer Community Plus</div>
+                <div class="lsub">Enterprise Edition · Member-Based · Order 35315036</div>
+              </div>
+            </div>
+          </td>
+          <td style="font-weight:700;font-size:16px;">70</td>
+          <td class="right"><div class="ltotal">A$6.30</div><div class="lunit">per member / month</div></td>
+          <td class="right"><div class="ltotal">A$5,292</div><div class="lunit">per year</div></td>
+          <td style="font-size:12.5px;">9 Mar 2026<br/>→ 29 Jan 2027</td>
+          <td><span class="badge badge-green"><span class="badge-dot"></span> Active</span></td>
+        </tr>
+        <!-- MC Growth -->
+        <tr>
+          <td>
+            <div class="license-name-cell">
+              <div class="license-icon bg-purple"><svg viewBox="0 0 24 24" fill="none"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="#7C3AED" stroke-width="2"/><polyline points="22,6 12,13 2,6" stroke="#7C3AED" stroke-width="2"/></svg></div>
+              <div>
+                <div class="lname">Marketing Cloud Account Engagement</div>
+                <div class="lsub">Growth Edition · Order 32543757</div>
+              </div>
+            </div>
+          </td>
+          <td style="font-weight:700;font-size:16px;">1</td>
+          <td class="right"><div class="ltotal">A$612.50</div><div class="lunit">per month</div></td>
+          <td class="right"><div class="ltotal">A$7,350</div><div class="lunit">per year</div></td>
+          <td style="font-size:12.5px;">14 Jul 2025<br/>→ 29 Jan 2027</td>
+          <td><span class="badge badge-green"><span class="badge-dot"></span> Active</span></td>
+        </tr>
+        <!-- MC Sales Emails -->
+        <tr>
+          <td>
+            <div class="license-name-cell">
+              <div class="license-icon bg-amber"><svg viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13" stroke="#D97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 2L15 22l-4-9-9-4 20-7z" stroke="#D97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div>
+                <div class="lname">MC Account Engagement — Sales Emails &amp; Alerts</div>
+                <div class="lsub">Order 32543757</div>
+              </div>
+            </div>
+          </td>
+          <td style="font-weight:700;font-size:16px;">3</td>
+          <td class="right"><div class="ltotal">A$24.50</div><div class="lunit">per user / month</div></td>
+          <td class="right"><div class="ltotal">A$882</div><div class="lunit">per year</div></td>
+          <td style="font-size:12.5px;">14 Jul 2025<br/>→ 29 Jan 2027</td>
+          <td><span class="badge badge-green"><span class="badge-dot"></span> Active</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Contract / Billing info -->
+  <div class="contract-info reveal">
+    <div class="info-card">
+      <h4>Contract Details</h4>
+      <div class="info-row"><span class="info-row-label">Contract Number</span><span class="info-row-value">04175609</span></div>
+      <div class="info-row"><span class="info-row-label">Contract End Date</span><span class="info-row-value">29 January 2027</span></div>
+      <div class="info-row"><span class="info-row-label">Payment Terms</span><span class="info-row-value">Net 30</span></div>
+      <div class="info-row"><span class="info-row-label">Billing Frequency</span><span class="info-row-value">Quarterly</span></div>
+      <div class="info-row"><span class="info-row-label">Currency</span><span class="info-row-value">Australian Dollar (AUD)</span></div>
+      <div class="info-row"><span class="info-row-label">Account Executive</span><span class="info-row-value">Ryan Parry</span></div>
+    </div>
+    <div class="info-card">
+      <h4>Annual Value Summary</h4>
+      <div class="info-row"><span class="info-row-label">Sales &amp; Service Cloud</span><span class="info-row-value">A$30,988</span></div>
+      <div class="info-row"><span class="info-row-label">Customer Community Plus</span><span class="info-row-value">A$5,292</span></div>
+      <div class="info-row"><span class="info-row-label">MC Account Engagement — Growth</span><span class="info-row-value">A$7,350</span></div>
+      <div class="info-row"><span class="info-row-label">MC Sales Emails &amp; Alerts</span><span class="info-row-value">A$882</span></div>
+      <div class="info-row" style="padding-top:13px;margin-top:4px;border-top:2px solid var(--border)">
+        <span class="info-row-label" style="font-weight:700;color:var(--navy)">Total Annual Run Rate</span>
+        <span class="info-row-value" style="color:var(--teal);font-size:16px;">A$44,512</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Renewal alert -->
+  <div class="renewal-highlight reveal">
+    <div class="renewal-icon">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 100-16 8 8 0 000 16zm1-8h4v2h-6V7h2v5z"/></svg>
+    </div>
+    <div class="renewal-text">
+      <strong>Two Pathways to Grow Your Platform — Act Now</strong>
+      <span>Both add-ons can go live on <strong>1 July 2026</strong> — co-termed to align with your current contract end date of 29 January 2027. Alternatively, an <strong>early renewal</strong> combines all products into a new 1, 2, or 3 year agreement at today's rates, with no uplift applied to any existing SKU. See the proposals below for both options.</span>
+    </div>
+  </div>
+
+  <!-- Disclaimer -->
+  <p style="font-size:11.5px;color:var(--text-muted);margin-top:20px;line-height:1.6;padding:14px 16px;background:var(--bg);border-radius:8px;border-left:3px solid var(--border);">
+    <strong>Note:</strong> This summary is for informational purposes only. Not all services purchased from Salesforce.com are listed. Excluded products may include professional services, training, reseller purchases, and certain Marketing Cloud or Pardot services. For a complete listing, refer to your signed contracts.
+  </p>
+
+</div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- ─── PROPOSALS ─── -->
+<div style="background:var(--bg);">
+<div class="section" id="proposals">
+
+  <div class="section-header reveal">
+    <div class="section-tag"><div class="section-tag-line"></div> Growth Opportunities</div>
+    <h2 class="section-title">Recommended Proposals</h2>
+    <p class="section-subtitle">Two targeted growth opportunities aligned directly to Associated Cleaning's operational expansion and digital service strategy.</p>
+  </div>
+
+  <!-- Co-term pricing toggle -->
+  <div class="coterm-bar reveal">
+    <div class="coterm-bar-left">
+      <div class="coterm-icon-wrap">
+        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2" stroke="#D97706" stroke-width="2" fill="none"/><line x1="16" y1="2" x2="16" y2="6" stroke="#D97706" stroke-width="2"/><line x1="8" y1="2" x2="8" y2="6" stroke="#D97706" stroke-width="2"/><line x1="3" y1="10" x2="21" y2="10" stroke="#D97706" stroke-width="2"/></svg>
+      </div>
+      <div>
+        <div class="coterm-bar-title">Pricing Mode</div>
+        <div class="coterm-bar-desc">Toggle between <strong>full annual</strong> and <strong>add-on from 1 Jul 2026</strong> pricing. The co-termed rate is prorated across <strong>213 days</strong> (1 Jul 2026 → 29 Jan 2027), aligning the add-ons with your current contract expiry. For multi-year pricing, see the <strong>Early Renewal Bundle</strong> tab.</div>
+      </div>
+    </div>
+    <div class="coterm-controls">
+      <span class="coterm-lbl active" id="lbl-annual">Full Annual</span>
+      <button class="toggle-sw" id="coterm-toggle" onclick="toggleCoterm()" aria-label="Toggle co-term pricing" type="button">
+        <div class="toggle-thumb"></div>
+      </button>
+      <span class="coterm-lbl" id="lbl-coterm">Add-On from 1 Jul 2026</span>
+      <span class="coterm-pill" id="coterm-pill">
+        <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+        Save <span id="ct-saving">–</span>
+      </span>
+    </div>
+  </div>
+
+  <div class="proposal-tabs reveal">
+    <button class="tab-btn active" onclick="switchTab('p1',this)">Proposal 1 · Community Add-On</button>
+    <button class="tab-btn" onclick="switchTab('p2',this)">Proposal 2 · Mobile Publisher</button>
+    <button class="tab-btn" onclick="switchTab('p3',this)">Early Renewal Bundle</button>
+  </div>
+
+  <!-- ══ P1: Community Portal ══ -->
+  <div id="p1" class="tab-content active">
+    <div class="proposal-grid">
+      <div class="proposal-main">
+
+        <div class="prop-hero-card reveal">
+          <div class="prop-hero-header">
+            <div class="prop-hero-tag">Proposal 1 · Licence Expansion</div>
+            <h2 class="prop-hero-title">Add 400 Community Members —<br/>Ready to Transact Within 2 Weeks</h2>
+            <p class="prop-hero-desc">Associated Cleaning is ready to expand its Customer Community Plus portal from 70 to 470 members. This add-on locks in the same A$6.30/member/month rate, with a proposed start date of <strong>1 July 2026</strong> — aligning with the new financial year and co-terming to your current contract expiry of 29 January 2027.</p>
+          </div>
+          <div class="prop-hero-body">
+            <p style="font-size:13.5px;color:var(--text-muted);line-height:1.7;">Associated Cleaning currently has <strong style="color:var(--navy)">70 registered portal members</strong> at <strong style="color:var(--navy)">A$6.30/member/month</strong>. This proposal adds <strong style="color:var(--teal)">400 members at the same rate</strong>, bringing the total to <strong style="color:var(--teal)">470 members</strong>. Associated Cleaning is committed to transacting <strong style="color:var(--navy)">within two weeks</strong>. Two paths are available: activate as an <strong style="color:var(--navy)">add-on from 1 Jul 2026</strong> co-termed to 29 Jan 2027, or include within an <strong style="color:var(--navy)">early renewal</strong> for a clean multi-year agreement — see the Early Renewal Bundle tab.</p>
+          </div>
+        </div>
+
+        <!-- Benefits -->
+        <div class="reveal">
+          <h3 style="font-size:15px;font-weight:700;color:var(--navy);margin-bottom:16px;">Why Expand Your Member Allocation?</h3>
+          <div class="benefits-grid">
+            <div class="benefit-card">
+              <div class="benefit-icon bg-teal"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
+              <h4>Self-Service at Scale</h4>
+              <p>Clients log jobs, view compliance documents, track schedules, and raise requests — all without calling your support team. More members means more self-service, fewer inbound tickets.</p>
+            </div>
+            <div class="benefit-card">
+              <div class="benefit-icon bg-blue"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+              <h4>Competitive Differentiation</h4>
+              <p>An active, branded customer portal is increasingly a procurement requirement for enterprise FM contracts. Capacity demonstrates operational readiness to new and renewing clients.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Business case -->
+        <div class="case-card reveal">
+          <h3><div class="ic"><svg viewBox="0 0 24 24"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg></div> Business Case</h3>
+          <div class="case-point">
+            <div class="cp-dot"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
+            <div class="cp-text"><strong>Ready to transact.</strong> Associated Cleaning has identified 400 new portal members and is committed to proceeding within two weeks. A <strong>1 July 2026 start date</strong> aligns with the new financial year, ensures every new member is onboarded from day one of FY27, and can co-term cleanly with the existing contract.</div>
+          </div>
+          <div class="case-point">
+            <div class="cp-dot"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
+            <div class="cp-text"><strong>Operational cost avoidance.</strong> Each new client handled purely via phone/email support rather than self-service portal consumes approximately 3–5 hours of admin time per month. 30 additional portal clients saves an estimated 90–150 hours/month.</div>
+          </div>
+          <div class="case-point">
+            <div class="cp-dot"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
+            <div class="cp-text"><strong>Retention driver.</strong> Portal-engaged clients show significantly higher contract renewal rates in the facilities management sector. The portal surfaces value — job completion data, compliance records, SLA reporting — that reinforces the relationship at renewal time.</div>
+          </div>
+          <div class="case-point">
+            <div class="cp-dot"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
+            <div class="cp-text"><strong>Per-member economics stay strong.</strong> At A$6.30/member/month, you're spending less per client on digital engagement than most organisations spend on a single inbound support interaction. Expanding volume doesn't change the unit economics — it amplifies them.</div>
+          </div>
+        </div>
+
+      </div><!-- /main -->
+
+      <div class="sidebar">
+
+        <div class="pricing-card reveal">
+          <div class="pricing-card-header">
+            <p>Recommended Package · June Offer</p>
+            <h3>Community Plus Enterprise<br/>Member Add-On</h3>
+          </div>
+          <div class="pricing-card-body">
+            <div class="pricing-tier">
+              <div class="pricing-tier-label">June Offer · Add-On</div>
+              <div class="pricing-tier-name">400 Additional Members</div>
+              <div class="pricing-tier-desc">70 existing + 400 add-on = <strong>470 total members</strong></div>
+            </div>
+            <div class="pricing-row">
+              <span class="pricing-row-label">Product</span>
+              <span class="pricing-row-value" style="font-size:12px;text-align:right;max-width:200px">Customer Community Plus — Enterprise Members</span>
+            </div>
+            <div class="pricing-row">
+              <span class="pricing-row-label">Add-on quantity</span>
+              <span class="pricing-row-value teal">400 members</span>
+            </div>
+            <div class="pricing-row">
+              <span class="pricing-row-label">Sales price</span>
+              <span class="pricing-row-value">A$6.30 / member / mo</span>
+            </div>
+            <div class="pricing-row">
+              <span class="pricing-row-label">Annual add-on cost</span>
+              <span class="pricing-row-value teal">
+                <span class="pv" data-annual="30240">A$30,240</span><span class="pv-suffix" data-annual=" /yr" data-coterm=" (co-termed)"> /yr</span>
+              </span>
+            </div>
+            <div class="pricing-row coterm-row" id="ct-row-p1">
+              <span class="pricing-row-label" style="color:var(--amber);font-size:12px;">↳ Prorated days remaining</span>
+              <span class="pricing-row-value" style="color:var(--amber);font-size:12px;" id="ct-days-p1">— days</span>
+            </div>
+            <div class="pricing-row">
+              <span class="pricing-row-label">Total members (after)</span>
+              <span class="pricing-row-value teal">470 members</span>
+            </div>
+            <div class="pricing-row">
+              <span class="pricing-row-label">Billing frequency</span>
+              <span class="pricing-row-value">Quarterly</span>
+            </div>
+            <div class="pricing-row">
+              <span class="pricing-row-label">Payment terms</span>
+              <span class="pricing-row-value">Net 30</span>
+            </div>
+            <a href="#" class="cta-button" onclick="return false;">Discuss This Proposal</a>
+            <a href="#" class="cta-button cta-button-outline" onclick="return false;">Get Formal Quote</a>
+          </div>
+        </div>
+
+        <div class="compare-card reveal">
+          <div class="compare-card-header">
+            <h4>Current vs. After Add-On</h4>
+          </div>
+          <div class="compare-row head">
+            <span>Feature</span>
+            <span class="compare-col">Current</span>
+            <span class="compare-col compare-hl">After Add-On</span>
+          </div>
+          <div class="compare-row">
+            <span>Total members</span>
+            <span class="compare-col" style="font-weight:700">70</span>
+            <span class="compare-col compare-hl">470</span>
+          </div>
+          <div class="compare-row">
+            <span>Unlimited visits/member</span>
+            <span class="compare-col chk">✓</span>
+            <span class="compare-col chk compare-hl">✓</span>
+          </div>
+          <div class="compare-row">
+            <span>Custom branding</span>
+            <span class="compare-col chk">✓</span>
+            <span class="compare-col chk compare-hl">✓</span>
+          </div>
+          <div class="compare-row">
+            <span>Case management</span>
+            <span class="compare-col chk">✓</span>
+            <span class="compare-col chk compare-hl">✓</span>
+          </div>
+          <div class="compare-row">
+            <span>Capacity headroom</span>
+            <span class="compare-col crs">Tight</span>
+            <span class="compare-col compare-hl">400+ spare</span>
+          </div>
+          <div class="compare-row">
+            <span>Mobile Publisher ready</span>
+            <span class="compare-col crs">✕</span>
+            <span class="compare-col chk compare-hl">✓</span>
+          </div>
+        </div>
+
+        <div class="highlight-card reveal">
+          <h4>What 470 Members Unlocks</h4>
+          <p>Based on similar FM sector organisations scaling their Community portal.</p>
+          <div class="hl-stats">
+            <div class="hl-stat"><div class="hl-val">6.7×</div><div class="hl-lbl">Capacity growth</div></div>
+            <div class="hl-stat"><div class="hl-val">40%</div><div class="hl-lbl">Fewer support calls</div></div>
+            <div class="hl-stat"><div class="hl-val">88%</div><div class="hl-lbl">Client retention</div></div>
+          </div>
+        </div>
+
+      </div><!-- /sidebar -->
+    </div>
+  </div><!-- /p1 -->
+
+  <!-- ══ P2: Mobile Publisher ══ -->
+  <div id="p2" class="tab-content">
+    <div class="proposal-grid">
+      <div class="proposal-main">
+
+        <div class="prop-hero-card reveal">
+          <div class="prop-hero-header">
+            <div class="prop-hero-tag">Proposal 2 · New Capability</div>
+            <h2 class="prop-hero-title">A Branded Mobile App for<br/>Your 470 Portal Members</h2>
+            <p class="prop-hero-desc">Mobile Publisher turns your Customer Community Plus portal into a native iOS and Android app — published in the App Store and Google Play as <strong>"Associated Cleaning"</strong>. Your portal members download your app, not Salesforce's. Built for customers, not internal employees.</p>
+          </div>
+          <div class="prop-hero-body">
+            <p style="font-size:13.5px;color:var(--text-muted);line-height:1.7;">Associated Cleaning currently has <strong style="color:var(--navy)">no branded mobile app</strong> for its Community portal members. Mobile Publisher changes that — packaging your existing Community portal pages and workflows into a <strong style="color:var(--navy)">native iOS and Android app for customers</strong>, with zero development required. The <strong style="color:var(--teal)">470-user licence</strong> is sized to align precisely with your post-expansion Community Plus member count. This proposal is for <strong style="color:var(--navy)">customers only</strong> — the app serves as the mobile version of the community portal, not an internal tool for employees.</p>
+          </div>
+        </div>
+
+        <!-- Features -->
+        <div class="reveal">
+          <h3 style="font-size:15px;font-weight:700;color:var(--navy);margin-bottom:16px;">Key Capabilities</h3>
+          <div class="features-list">
+            <div class="feature-item">
+              <div class="feature-item-icon bg-blue"><svg viewBox="0 0 24 24" fill="none"><rect x="5" y="2" width="14" height="20" rx="2" stroke="#3B82F6" stroke-width="2"/><path d="M12 18h.01" stroke="#3B82F6" stroke-width="2" stroke-linecap="round"/></svg></div>
+              <div class="feature-item-content">
+                <h4>Your Brand in the App Store</h4>
+                <p>"Associated Cleaning" appears in the Apple App Store and Google Play. Your portal members download and recognise your app — not Salesforce's. A direct trust signal with every enterprise client.</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-item-icon bg-teal"><svg viewBox="0 0 24 24" fill="none"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="#00A3A3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="feature-item-content">
+                <h4>Native Mobile Community Portal</h4>
+                <p>Your 470 Community Plus members access their portal through a native iOS and Android app. No browser, no generic login screen — a seamless branded experience purpose-built for your customers.</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-item-icon bg-green"><svg viewBox="0 0 24 24" fill="none"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.01 1.19 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke="#16A34A" stroke-width="2"/></svg></div>
+              <div class="feature-item-content">
+                <h4>Push Notifications for Service Updates</h4>
+                <p>Notify members when jobs are completed, compliance certificates are ready, service schedules are updated, or new reports are available — native push notifications reduce inbound enquiries.</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-item-icon bg-purple"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#7C3AED" stroke-width="2"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" stroke="#7C3AED" stroke-width="2"/></svg></div>
+              <div class="feature-item-content">
+                <h4>Perfectly Aligned to Member Count</h4>
+                <p>470 Mobile Publisher licences maps precisely to the post-expansion Community Plus member count. One product, one quantity — every portal member gets a native mobile experience, no allocation gaps.</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-item-icon bg-amber"><svg viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#D97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="feature-item-content">
+                <h4>Zero Development Required</h4>
+                <p>Mobile Publisher packages your existing Community portal configuration — pages, flows, records — via Salesforce point-and-click. No iOS or Android developers needed. Live in 4–6 weeks.</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-item-icon bg-rose"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#E11D48" stroke-width="2"/><path d="M12 8v4m0 4h.01" stroke="#E11D48" stroke-width="2" stroke-linecap="round"/></svg></div>
+              <div class="feature-item-content">
+                <h4>Offline Access for Members</h4>
+                <p>Customers can view service history, job records, and compliance documents even without connectivity. Data syncs automatically when they reconnect — no disruption to the member experience.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Case -->
+        <div class="case-card reveal">
+          <h3><div class="ic"><svg viewBox="0 0 24 24"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg></div> Why This Matters for Associated Cleaning</h3>
+          <div class="case-point">
+            <div class="cp-dot"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
+            <div class="cp-text"><strong>No current customer mobile app.</strong> Associated Cleaning has no branded mobile touchpoint for its Community portal members today. Mobile Publisher fills that gap — every portal member gets a native app experience without a single line of code being written.</div>
+          </div>
+          <div class="case-point">
+            <div class="cp-dot"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
+            <div class="cp-text"><strong>A natural extension of Proposal 1.</strong> The 470-user quantity isn't arbitrary — it aligns exactly with the post-expansion Community Plus member count. Proposal 1 grows the portal to 470 members; Proposal 2 puts a branded native app in every one of those members' hands.</div>
+          </div>
+          <div class="case-point">
+            <div class="cp-dot"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
+            <div class="cp-text"><strong>Customer experience as a differentiator.</strong> In commercial cleaning, digital maturity is increasingly a tender requirement. Clients who interact with Associated Cleaning via a dedicated branded app — not a browser or a phone call — perceive a higher standard of service and professionalism.</div>
+          </div>
+          <div class="case-point">
+            <div class="cp-dot"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
+            <div class="cp-text"><strong>Better engagement than browser-based portal.</strong> Native apps drive significantly higher engagement than mobile browser sessions. Push notifications — only available through a native app — allow Associated Cleaning to proactively communicate service milestones without waiting for customers to log in.</div>
+          </div>
+        </div>
+
+      </div><!-- /main -->
+
+      <div class="sidebar">
+
+        <div class="pricing-card reveal">
+          <div class="pricing-card-header">
+            <p>Recommended Package · June Offer</p>
+            <h3>Mobile Publisher<br/>for Community Members</h3>
+          </div>
+          <div class="pricing-card-body">
+            <div class="pricing-tier">
+              <div class="pricing-tier-label">June Offer · Customer-Facing</div>
+              <div class="pricing-tier-name">470 Community Members</div>
+              <div class="pricing-tier-desc">Branded portal app for customers only (70 existing + 400 add-on)</div>
+            </div>
+            <div class="pricing-row">
+              <span class="pricing-row-label">Product</span>
+              <span class="pricing-row-value" style="font-size:12px;text-align:right;max-width:200px">Mobile Publisher for Community Members</span>
+            </div>
+            <div class="pricing-row">
+              <span class="pricing-row-label">Quantity</span>
+              <span class="pricing-row-value teal">470 users</span>
+            </div>
+            <div class="pricing-row">
+              <span class="pricing-row-label">Sales price</span>
+              <span class="pricing-row-value">A$7.00 / user / mo</span>
+            </div>
+            <div class="pricing-row">
+              <span class="pricing-row-label">Annual licence cost</span>
+              <span class="pricing-row-value teal">
+                <span class="pv" data-annual="39480">A$39,480</span><span class="pv-suffix" data-annual=" /yr" data-coterm=" (co-termed)"> /yr</span>
+              </span>
+            </div>
+            <div class="pricing-row coterm-row" id="ct-row-p2">
+              <span class="pricing-row-label" style="color:var(--amber);font-size:12px;">↳ Prorated days remaining</span>
+              <span class="pricing-row-value" style="color:var(--amber);font-size:12px;" id="ct-days-p2">— days</span>
+            </div>
+            <div class="pricing-row">
+              <span class="pricing-row-label">Platform coverage</span>
+              <span class="pricing-row-value">iOS &amp; Android</span>
+            </div>
+            <div class="pricing-row">
+              <span class="pricing-row-label">App Store submission</span>
+              <span class="pricing-row-value" style="color:var(--green)">Included</span>
+            </div>
+            <div class="pricing-row">
+              <span class="pricing-row-label">Go-live estimate</span>
+              <span class="pricing-row-value">4–6 weeks</span>
+            </div>
+            <div class="pricing-row">
+              <span class="pricing-row-label">Billing frequency</span>
+              <span class="pricing-row-value">Quarterly</span>
+            </div>
+            <div class="pricing-row">
+              <span class="pricing-row-label">Payment terms</span>
+              <span class="pricing-row-value">Net 30</span>
+            </div>
+            <a href="#" class="cta-button" onclick="return false;">Discuss This Proposal</a>
+            <a href="#" class="cta-button cta-button-outline" onclick="return false;">Request a Live Demo</a>
+          </div>
+        </div>
+
+        <div class="compare-card reveal">
+          <div class="compare-card-header">
+            <h4>Browser Portal vs. Mobile Publisher App</h4>
+          </div>
+          <div class="compare-row head">
+            <span>Feature</span>
+            <span class="compare-col">Browser Only</span>
+            <span class="compare-col compare-hl">Mobile App</span>
+          </div>
+          <div class="compare-row">
+            <span>Branded customer app</span>
+            <span class="compare-col crs">✕</span>
+            <span class="compare-col chk compare-hl">✓</span>
+          </div>
+          <div class="compare-row">
+            <span>App Store presence</span>
+            <span class="compare-col crs">✕</span>
+            <span class="compare-col chk compare-hl">✓</span>
+          </div>
+          <div class="compare-row">
+            <span>Push notifications</span>
+            <span class="compare-col crs">✕</span>
+            <span class="compare-col chk compare-hl">✓</span>
+          </div>
+          <div class="compare-row">
+            <span>Native mobile UX</span>
+            <span class="compare-col crs">✕</span>
+            <span class="compare-col chk compare-hl">✓</span>
+          </div>
+          <div class="compare-row">
+            <span>Offline access</span>
+            <span class="compare-col crs">✕</span>
+            <span class="compare-col chk compare-hl">✓</span>
+          </div>
+          <div class="compare-row">
+            <span>Portal content &amp; data</span>
+            <span class="compare-col chk">✓</span>
+            <span class="compare-col chk compare-hl">✓</span>
+          </div>
+        </div>
+
+        <div class="highlight-card reveal">
+          <h4>Combined Investment Summary</h4>
+          <p id="ct-summary-desc">Both proposals at full annual pricing. Toggle co-termed above to see prorated totals.</p>
+          <div class="hl-stats">
+            <div class="hl-stat">
+              <div class="hl-val"><span class="pv" data-annual="30240">A$30,240</span></div>
+              <div class="hl-lbl">Community add-on</div>
+            </div>
+            <div class="hl-stat">
+              <div class="hl-val"><span class="pv" data-annual="39480">A$39,480</span></div>
+              <div class="hl-lbl">Mobile Publisher</div>
+            </div>
+          </div>
+          <div style="background:rgba(255,255,255,0.07);border-radius:8px;padding:12px 14px;margin-top:14px;display:flex;justify-content:space-between;align-items:center">
+            <span style="font-size:12px;color:rgba(255,255,255,0.45)" id="ct-total-lbl">Total incremental</span>
+            <span style="font-size:20px;font-weight:900;color:var(--teal-light)"><span class="pv" data-annual="69720">A$69,720</span></span>
+          </div>
+          <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:10px 14px;margin-top:8px;display:flex;justify-content:space-between;align-items:center">
+            <span style="font-size:12px;color:rgba(255,255,255,0.35)">New annual run rate</span>
+            <span style="font-size:15px;font-weight:700;color:rgba(255,255,255,0.7)">A$114,232</span>
+          </div>
+        </div>
+
+      </div><!-- /sidebar -->
+    </div>
+  </div><!-- /p2 -->
+
+  <!-- ══ P3: EARLY RENEWAL BUNDLE ══ -->
+  <div id="p3" class="tab-content">
+
+    <div class="prop-hero-card reveal">
+      <div class="prop-hero-header">
+        <div class="prop-hero-tag">Early Renewal · Bundle Option</div>
+        <h2 class="prop-hero-title">Lock In Today's Pricing.<br/>Renew Before You Have To.</h2>
+        <p class="prop-hero-desc">Combine both add-ons with your existing Salesforce contract into a new 1, 2, or 3 year agreement starting <strong>1 July 2026</strong>. All products go live immediately, your prices are frozen for the full term, and your next renewal date moves further into the future.</p>
+      </div>
+      <div class="prop-hero-body">
+        <p style="font-size:13.5px;color:var(--text-muted);line-height:1.7;">Salesforce applies a <strong style="color:var(--navy)">price uplift to existing SKUs at the point of contract renewal</strong>. By renewing early under today's commercial rates, Associated Cleaning locks in current pricing across all existing licences — Sales &amp; Service Cloud, Customer Community Plus, and Marketing Cloud Account Engagement — while simultaneously activating both add-ons from 1 July 2026. The result is a single, clean multi-year agreement with no pricing surprises at renewal. Ryan will handle the commercial reconciliation of the remaining value on your existing contract.</p>
+      </div>
+    </div>
+
+    <div class="no-uplift-banner reveal">
+      <div class="no-uplift-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <div class="no-uplift-text">
+        <strong>No uplift applied to any existing SKU</strong>
+        <span>Sales &amp; Service Cloud, Customer Community Plus (existing 70 members), MC Account Engagement Growth, and MC Sales Emails &amp; Alerts are all locked at today's unit rates for the full term. Both add-ons included at June offer pricing.</span>
+      </div>
+    </div>
+
+    <!-- Savings comparison -->
+    <div class="savings-compare reveal">
+      <div class="sc-header">
+        <div class="sc-header-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+        </div>
+        <div class="sc-header-text">
+          <strong>Uplift Cost Savings Analysis</strong>
+          <span>What does each path cost — and how much does early renewal save?</span>
+        </div>
+      </div>
+      <div class="sc-body">
+        <div class="sc-assumption">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+          Assumption: Salesforce applies a <strong>&nbsp;9% price uplift&nbsp;</strong> across all contract SKUs at standard renewal (January 2027). Under an early renewal, no uplift is applied to any existing SKU.
+        </div>
+
+        <div class="sc-grid">
+
+          <!-- Path A -->
+          <div class="sc-card sc-card-a">
+            <div class="sc-path-tag">⚠ Path A — Standard Approach</div>
+            <div class="sc-path-title">Add-Ons Now (Co-termed)<br/>+ Renew at Jan 2027 with Uplift</div>
+            <div class="sc-line">
+              <span class="sc-line-label">Total annual before uplift</span>
+              <span class="sc-line-val val-neutral">A$114,232 / yr</span>
+            </div>
+            <div class="sc-line">
+              <span class="sc-line-label">9% uplift at Jan 2027 renewal</span>
+              <span class="sc-line-val val-bad">+ A$10,281 / yr</span>
+            </div>
+            <div class="sc-line">
+              <span class="sc-line-label">— On existing SKUs (A$44,512 × 9%)</span>
+              <span class="sc-line-val val-bad">+ A$4,006</span>
+            </div>
+            <div class="sc-line">
+              <span class="sc-line-label">— On add-on SKUs (A$69,720 × 9%)</span>
+              <span class="sc-line-val val-bad">+ A$6,275</span>
+            </div>
+            <div class="sc-line" style="margin-top:6px;padding-top:10px;border-top:2px solid #FECACA;border-bottom:none">
+              <span class="sc-line-label" style="font-weight:700;color:var(--navy)">Annual rate from Feb 2027</span>
+              <span class="sc-line-val val-bad" style="font-size:15px;">A$124,513 / yr</span>
+            </div>
+          </div>
+
+          <!-- Path B -->
+          <div class="sc-card sc-card-b">
+            <div class="sc-path-tag">✓ Path B — Early Renewal</div>
+            <div class="sc-path-title">Early Renewal from 1 Jul 2026<br/>No Uplift on Existing SKUs</div>
+            <div class="sc-line">
+              <span class="sc-line-label">Total annual locked from 1 Jul 2026</span>
+              <span class="sc-line-val val-neutral">A$114,232 / yr</span>
+            </div>
+            <div class="sc-line">
+              <span class="sc-line-label">Uplift on existing SKUs at renewal</span>
+              <span class="sc-line-val val-good">A$0</span>
+            </div>
+            <div class="sc-line">
+              <span class="sc-line-label">Uplift on add-on SKUs at renewal</span>
+              <span class="sc-line-val val-good">A$0</span>
+            </div>
+            <div class="sc-line">
+              <span class="sc-line-label">Annual saving vs. Path A</span>
+              <span class="sc-line-val val-good">A$10,281 / yr</span>
+            </div>
+            <div class="sc-line" style="margin-top:6px;padding-top:10px;border-top:2px solid #BBF7D0;border-bottom:none">
+              <span class="sc-line-label" style="font-weight:700;color:var(--navy)">Annual rate — locked</span>
+              <span class="sc-line-val val-good" style="font-size:15px;">A$114,232 / yr</span>
+            </div>
+          </div>
+
+        </div><!-- /sc-grid -->
+
+        <div class="sc-divider"></div>
+
+        <p style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--text-muted);margin-bottom:12px;">Cumulative Saving by Renewal Term</p>
+        <div class="sc-savings-grid">
+          <div class="sc-saving-card">
+            <div class="sc-saving-term">1-Year Term</div>
+            <div class="sc-saving-val">A$10,281</div>
+            <div class="sc-saving-lbl">saved vs. Path A</div>
+          </div>
+          <div class="sc-saving-card hl">
+            <div class="sc-saving-term">2-Year Term</div>
+            <div class="sc-saving-val">A$20,562</div>
+            <div class="sc-saving-lbl">saved vs. Path A</div>
+          </div>
+          <div class="sc-saving-card hl" style="background:linear-gradient(135deg,var(--teal-pale),rgba(0,163,163,0.06));border-color:rgba(0,163,163,0.35)">
+            <div class="sc-saving-term">3-Year Term</div>
+            <div class="sc-saving-val" style="font-size:28px;">A$30,843</div>
+            <div class="sc-saving-lbl" style="color:var(--teal);font-weight:600;">maximum saving</div>
+          </div>
+        </div>
+
+      </div><!-- /sc-body -->
+    </div><!-- /savings-compare -->
+
+    <div class="renewal-year-grid reveal">
+      <div class="year-card">
+        <div class="year-card-header y1">
+          <div class="year-card-label">Option A</div>
+          <div class="year-card-title">1 Year</div>
+          <div class="year-card-period">1 Jul 2026 → 30 Jun 2027</div>
+        </div>
+        <div class="year-card-body">
+          <div class="year-price-block">
+            <div class="year-price-label">Annual Price</div>
+            <div class="year-price-val">A$114,232 <span>/ yr</span></div>
+            <div class="year-total-val">A$114,232 total contract value</div>
+          </div>
+          <div class="year-perk"><div class="year-perk-dot"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div><span>Both add-ons live from <strong>1 Jul 2026</strong> — no co-term paperwork</span></div>
+          <div class="year-perk"><div class="year-perk-dot"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div><span>All existing SKU prices <strong>frozen for 12 months</strong></span></div>
+          <div class="year-perk"><div class="year-perk-dot"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div><span>Renewal date moves to <strong>Jun 2027</strong></span></div>
+          <div class="year-perk"><div class="year-perk-dot"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div><span>Net 30 · Quarterly billing</span></div>
+          <a href="#" class="year-cta" onclick="return false;">Discuss 1-Year Option</a>
+        </div>
+      </div>
+      <div class="year-card">
+        <div class="year-card-header y2">
+          <div class="year-card-label light">Option B</div>
+          <div class="year-card-title light">2 Years</div>
+          <div class="year-card-period light">1 Jul 2026 → 30 Jun 2028</div>
+        </div>
+        <div class="year-card-body">
+          <div class="year-price-block">
+            <div class="year-price-label">Annual Price</div>
+            <div class="year-price-val">A$114,232 <span>/ yr</span></div>
+            <div class="year-total-val">A$228,464 total contract value</div>
+          </div>
+          <div class="year-perk"><div class="year-perk-dot"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div><span>Both add-ons live from <strong>1 Jul 2026</strong></span></div>
+          <div class="year-perk"><div class="year-perk-dot"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div><span>All existing SKU prices <strong>frozen for 24 months</strong></span></div>
+          <div class="year-perk"><div class="year-perk-dot"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div><span>Renewal date moves to <strong>Jun 2028</strong></span></div>
+          <div class="year-perk"><div class="year-perk-dot"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div><span>12 extra months of price protection over Option A</span></div>
+          <a href="#" class="year-cta" onclick="return false;">Discuss 2-Year Option</a>
+        </div>
+      </div>
+      <div class="year-card recommended">
+        <div class="year-card-header y3">
+          <div class="year-card-label light">Option C</div>
+          <div class="year-card-title light">3 Years</div>
+          <div class="year-card-period light">1 Jul 2026 → 30 Jun 2029</div>
+          <div class="rec-badge"><svg viewBox="0 0 24 24" style="width:11px;height:11px;fill:white"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> Best Value</div>
+        </div>
+        <div class="year-card-body">
+          <div class="year-price-block" style="background:var(--teal-pale);border:1px solid rgba(0,163,163,0.2)">
+            <div class="year-price-label" style="color:var(--teal)">Annual Price — Locked</div>
+            <div class="year-price-val">A$114,232 <span>/ yr</span></div>
+            <div class="year-total-val">A$342,696 total contract value</div>
+          </div>
+          <div class="year-perk"><div class="year-perk-dot"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div><span>Both add-ons live from <strong>1 Jul 2026</strong></span></div>
+          <div class="year-perk"><div class="year-perk-dot"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div><span>All existing SKU prices <strong>frozen for 36 months</strong></span></div>
+          <div class="year-perk"><div class="year-perk-dot"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div><span>Renewal date moves to <strong>Jun 2029</strong> — maximum uplift avoidance</span></div>
+          <div class="year-perk"><div class="year-perk-dot"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div><span>Greatest commercial certainty and planning horizon</span></div>
+          <a href="#" class="year-cta primary" onclick="return false;">Discuss 3-Year Option</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-card reveal">
+      <h3><div class="ic"><svg viewBox="0 0 24 24"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg></div> All SKUs Included — Unit Prices Locked at Today's Rates</h3>
+      <table class="sku-table">
+        <thead>
+          <tr><th>Product</th><th>Qty</th><th class="right">Unit Price</th><th class="right">Annual Value</th><th class="right">Price Status</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Sales &amp; Service Cloud Enterprise</strong></td>
+            <td>17</td><td class="right">A$151.90/user/mo</td><td class="right">A$30,988</td>
+            <td class="right"><span class="lock-pill"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg> Locked</span></td>
+          </tr>
+          <tr>
+            <td><strong>Customer Community Plus Enterprise</strong><br/><span style="font-size:11.5px;color:var(--text-muted)">70 existing + 400 add-on = 470 total members</span></td>
+            <td>470</td><td class="right">A$6.30/member/mo</td><td class="right">A$35,532</td>
+            <td class="right"><span class="lock-pill"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg> Locked</span></td>
+          </tr>
+          <tr>
+            <td><strong>MC Account Engagement Growth</strong></td>
+            <td>1</td><td class="right">A$612.50/mo</td><td class="right">A$7,350</td>
+            <td class="right"><span class="lock-pill"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg> Locked</span></td>
+          </tr>
+          <tr>
+            <td><strong>MC Sales Emails &amp; Alerts</strong></td>
+            <td>3</td><td class="right">A$24.50/user/mo</td><td class="right">A$882</td>
+            <td class="right"><span class="lock-pill"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg> Locked</span></td>
+          </tr>
+          <tr>
+            <td><strong>Mobile Publisher — Community Members</strong> <span class="sku-new">NEW</span></td>
+            <td>470</td><td class="right">A$7.00/user/mo</td><td class="right">A$39,480</td>
+            <td class="right"><span class="lock-pill"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg> Locked</span></td>
+          </tr>
+          <tr>
+            <td><strong>Total Annual Value</strong></td>
+            <td colspan="2"></td>
+            <td class="right" style="color:var(--teal);font-size:15px;">A$114,232</td>
+            <td class="right"><span style="font-size:11px;color:var(--text-muted)">Net 30 · Quarterly</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div><!-- /p3 -->
+
+</div>
+</div>
+
+<!-- ─── FOOTER ─── -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-left">
+      <p>
+        <strong>Associated Cleaning · Salesforce Partnership Review · June 2026</strong><br/>
+        Prepared by Ryan Parry, Account Executive — Salesforce Australia &amp; New Zealand<br/>
+        Confidential. Prepared exclusively for Associated Cleaning leadership. Contract 04175609.
+      </p>
+    </div>
+    <div class="footer-right">
+      <div class="footer-sf-badge">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10.5 2a7.5 7.5 0 015.95 12.04A6 6 0 1114 22H6a4 4 0 01-.96-7.88A7.5 7.5 0 0110.5 2z"/></svg>
+        Powered by Salesforce
+      </div>
+    </div>
+  </div>
+</footer>
+
+</div><!-- /main-content -->
+
+<script>
+  /* ── CO-TERM PRICING (fixed: 1 Jul 2026 → 29 Jan 2027 = 213 days) ── */
+  const ADDON_START    = new Date('2026-07-01');
+  const CONTRACT_END   = new Date('2027-01-29');
+  const COTERM_DAYS    = Math.ceil((CONTRACT_END - ADDON_START) / 86400000); // 213
+  const COTERM_FACTOR  = COTERM_DAYS / 365;
+  let isCotermed = false;
+
+  function fmtAUD(val) {
+    return 'A$' + Math.round(val).toLocaleString('en-AU');
+  }
+
+  function toggleCoterm() {
+    isCotermed = !isCotermed;
+    const btn = document.getElementById('coterm-toggle');
+    btn.classList.toggle('on', isCotermed);
+    document.getElementById('lbl-annual').classList.toggle('active', !isCotermed);
+    document.getElementById('lbl-coterm').classList.toggle('active', isCotermed);
+
+    const factor = isCotermed ? COTERM_FACTOR : 1;
+
+    // Update all .pv price elements
+    document.querySelectorAll('.pv').forEach(el => {
+      const annual = parseFloat(el.dataset.annual);
+      el.textContent = fmtAUD(annual * factor);
+      el.classList.toggle('ct', isCotermed);
+    });
+
+    // Update /yr suffix labels
+    document.querySelectorAll('.pv-suffix').forEach(el => {
+      el.textContent = isCotermed ? (el.dataset.coterm || '') : (el.dataset.annual || '');
+      el.classList.toggle('ct', isCotermed);
+    });
+
+    // Show/hide prorated days rows
+    ['ct-row-p1', 'ct-row-p2'].forEach(id => {
+      const row = document.getElementById(id);
+      if (row) row.classList.toggle('show', isCotermed);
+    });
+    const p1days = document.getElementById('ct-days-p1');
+    const p2days = document.getElementById('ct-days-p2');
+    if (p1days) p1days.textContent = COTERM_DAYS + ' days (1 Jul → 29 Jan) × (A$30,240 ÷ 365)';
+    if (p2days) p2days.textContent = COTERM_DAYS + ' days (1 Jul → 29 Jan) × (A$39,480 ÷ 365)';
+
+    // Savings pill
+    const annualTotal = 30240 + 39480;
+    const cotermTotal = Math.round(annualTotal * COTERM_FACTOR);
+    const saving = annualTotal - cotermTotal;
+    document.getElementById('ct-saving').textContent = fmtAUD(saving);
+    document.getElementById('coterm-pill').classList.toggle('show', isCotermed);
+
+    // Summary card
+    const desc = document.getElementById('ct-summary-desc');
+    const lbl  = document.getElementById('ct-total-lbl');
+    if (isCotermed) {
+      if (desc) desc.textContent = 'Add-on from 1 Jul 2026 — prorated across ' + COTERM_DAYS + ' days to 29 Jan 2027.';
+      if (lbl)  lbl.textContent  = 'Total incremental (co-termed)';
+    } else {
+      if (desc) desc.textContent = 'Full annual pricing. Toggle "Add-On from 1 Jul 2026" above to see co-termed totals, or see the Early Renewal Bundle tab for multi-year options.';
+      if (lbl)  lbl.textContent  = 'Total incremental';
+    }
+  }
+
+  /* ── TABS ── */
+  function switchTab(id, btn) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    btn.classList.add('active');
+    setTimeout(triggerReveal, 60);
+  }
+
+  /* ── ORDER EXPANDER ── */
+  function toggleOrders(id, btn) {
+    const el = document.getElementById('od-' + id);
+    const open = el.classList.toggle('show');
+    btn.classList.toggle('open', open);
+    btn.childNodes[1].textContent = open ? ' Hide orders' : ' 5 separate orders';
+  }
+
+  /* ── SCROLL REVEAL ── */
+  function triggerReveal() {
+    document.querySelectorAll('.reveal:not(.visible)').forEach(el => {
+      if (el.getBoundingClientRect().top < window.innerHeight - 60) {
+        el.classList.add('visible');
+      }
+    });
+  }
+
+  /* ── NAV ACTIVE ── */
+  function updateNav() {
+    const y = window.scrollY + 120;
+    [['licensing','#licensing'],['proposals','#proposals']].forEach(([id, href]) => {
+      const section = document.getElementById(id);
+      const link    = document.querySelector('.nav-links a[href="' + href + '"]');
+      if (!section || !link) return;
+      const top = section.offsetTop, bot = top + section.offsetHeight;
+      link.classList.toggle('active', y >= top && y < bot);
+    });
+  }
+
+  window.addEventListener('scroll', () => { triggerReveal(); updateNav(); }, { passive: true });
+  window.addEventListener('load', triggerReveal);
+</script>
+
+</body>
+</html>
