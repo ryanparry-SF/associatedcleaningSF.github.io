@@ -438,14 +438,6 @@
       box-shadow: 0 1px 4px rgba(0,0,0,0.18);
     }
     .toggle-sw.on .toggle-thumb { transform: translateX(22px); }
-    .coterm-pill {
-      display: none; align-items: center; gap: 5px;
-      background: var(--amber-pale); border: 1px solid #FDE68A;
-      border-radius: 20px; padding: 4px 12px;
-      font-size: 12px; font-weight: 700; color: var(--amber); white-space: nowrap;
-    }
-    .coterm-pill.show { display: inline-flex; }
-    .coterm-pill svg { width: 13px; height: 13px; fill: var(--amber); }
     /* dynamic price elements */
     .pv { transition: color 0.2s; }
     .pv.ct { color: var(--amber) !important; }
@@ -846,10 +838,6 @@
         <div class="toggle-thumb"></div>
       </button>
       <span class="coterm-lbl" id="lbl-coterm">Add-On from 1 Jul 2026</span>
-      <span class="coterm-pill" id="coterm-pill">
-        <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
-        Save <span id="ct-saving">–</span>
-      </span>
     </div>
   </div>
 
@@ -1530,12 +1518,6 @@
     if (p1days) p1days.textContent = COTERM_DAYS + ' days (1 Jul → 29 Jan) × (A$30,240 ÷ 365)';
     if (p2days) p2days.textContent = COTERM_DAYS + ' days (1 Jul → 29 Jan) × (A$39,480 ÷ 365)';
 
-    // Savings pill
-    const annualTotal = 30240 + 39480;
-    const cotermTotal = Math.round(annualTotal * COTERM_FACTOR);
-    const saving = annualTotal - cotermTotal;
-    document.getElementById('ct-saving').textContent = fmtAUD(saving);
-    document.getElementById('coterm-pill').classList.toggle('show', isCotermed);
 
     // Summary card
     const desc = document.getElementById('ct-summary-desc');
