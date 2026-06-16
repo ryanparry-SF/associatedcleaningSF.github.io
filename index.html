@@ -34,6 +34,56 @@
     html { scroll-behavior: smooth; }
     body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; font-size: 15px; }
 
+    /* ─── PASSWORD SCREEN ─── */
+    #pw-screen {
+      position: fixed; inset: 0; z-index: 9999;
+      background: linear-gradient(160deg, #071524 0%, #0D2340 45%, #0A3D3D 100%);
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px; transition: opacity 0.45s ease;
+    }
+    #pw-screen.fade-out { opacity: 0; pointer-events: none; }
+    .pw-card {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 20px; padding: 48px 44px; width: 100%; max-width: 420px;
+      text-align: center; backdrop-filter: blur(16px);
+      box-shadow: 0 24px 80px rgba(0,0,0,0.5);
+    }
+    .pw-logo {
+      width: 64px; height: 64px;
+      background: linear-gradient(135deg, var(--teal) 0%, #007A7A 100%);
+      border-radius: 16px; display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 22px; box-shadow: 0 8px 28px rgba(0,163,163,0.4);
+    }
+    .pw-logo svg { width: 34px; height: 34px; }
+    .pw-company { font-size: 22px; font-weight: 800; color: white; letter-spacing: -0.02em; margin-bottom: 6px; }
+    .pw-subtitle { font-size: 13px; color: rgba(255,255,255,0.45); margin-bottom: 32px; line-height: 1.5; }
+    .pw-label { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.4); text-align: left; display: block; margin-bottom: 8px; }
+    .pw-input-wrap { position: relative; margin-bottom: 14px; }
+    .pw-input {
+      width: 100%; padding: 13px 48px 13px 16px;
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 10px; font-size: 15px; color: white; font-family: inherit;
+      outline: none; transition: border-color 0.15s, background 0.15s;
+    }
+    .pw-input::placeholder { color: rgba(255,255,255,0.25); }
+    .pw-input:focus { border-color: rgba(0,163,163,0.6); background: rgba(255,255,255,0.08); }
+    .pw-input.error { border-color: rgba(220,38,38,0.6); background: rgba(220,38,38,0.06); }
+    .pw-toggle { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; padding: 4px; color: rgba(255,255,255,0.35); transition: color 0.15s; }
+    .pw-toggle:hover { color: rgba(255,255,255,0.7); }
+    .pw-toggle svg { width: 18px; height: 18px; fill: currentColor; }
+    .pw-error { font-size: 12.5px; color: #FCA5A5; margin-bottom: 14px; display: none; text-align: left; }
+    .pw-error.show { display: block; }
+    .pw-btn {
+      width: 100%; padding: 14px;
+      background: linear-gradient(135deg, var(--teal), #007A7A);
+      color: white; font-size: 15px; font-weight: 700; border: none;
+      border-radius: 10px; cursor: pointer; font-family: inherit;
+      transition: opacity 0.15s, transform 0.1s; box-shadow: 0 4px 16px rgba(0,163,163,0.35);
+    }
+    .pw-btn:hover { opacity: 0.92; transform: translateY(-1px); }
+    .pw-lock-icon { display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 24px; font-size: 11.5px; color: rgba(255,255,255,0.25); }
+    .pw-lock-icon svg { width: 14px; height: 14px; fill: rgba(255,255,255,0.25); }
+
     /* ─── MAIN CONTENT ─── */
 
     /* ─── NAV ─── */
@@ -550,7 +600,37 @@
 </head>
 <body>
 
-<div id="main-content" style="display:block">
+<!-- PASSWORD SCREEN -->
+<div id="pw-screen">
+  <div class="pw-card">
+    <div class="pw-logo">
+      <svg viewBox="0 0 40 40" fill="none">
+        <path d="M10 30L20 10L30 30" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M13.5 23.5H26.5" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="20" cy="10" r="2.5" fill="white"/>
+        <path d="M30 15L32 13M10 15L8 13" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="pw-company">Associated Cleaning</div>
+    <div class="pw-subtitle">Salesforce Partnership Review · June 2026<br/>This document is confidential and password protected.</div>
+    <label class="pw-label" for="pw-input">Access Password</label>
+    <div class="pw-input-wrap">
+      <input type="password" id="pw-input" class="pw-input" placeholder="Enter your access password" autocomplete="off" />
+      <button class="pw-toggle" onclick="togglePwVis()" type="button" id="pw-eye" title="Show / hide">
+        <svg id="eye-icon" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+      </button>
+    </div>
+    <div class="pw-error" id="pw-error">Incorrect password. Please try again.</div>
+    <button class="pw-btn" onclick="handleLogin()">View Partnership Review</button>
+    <div class="pw-lock-icon">
+      <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+      Password protected
+    </div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div id="main-content" style="display:none">
 
 <!-- ─── NAV ─── -->
 <nav>
@@ -1475,6 +1555,65 @@
 </div><!-- /main-content -->
 
 <script>
+  /* ── PASSWORD GATE ── */
+  const PASS = 'AssociatedCleaningSF2026';
+
+  function checkAuth() {
+    if (sessionStorage.getItem('ac_auth_v1') === '1') unlock(false);
+  }
+
+  function unlock(animate) {
+    const screen = document.getElementById('pw-screen');
+    const content = document.getElementById('main-content');
+    if (animate) {
+      screen.classList.add('fade-out');
+      content.style.display = 'block';
+      setTimeout(() => { screen.style.display = 'none'; triggerReveal(); }, 450);
+    } else {
+      screen.style.display = 'none';
+      content.style.display = 'block';
+    }
+  }
+
+  function handleLogin() {
+    const input = document.getElementById('pw-input');
+    const err   = document.getElementById('pw-error');
+    if (input.value === PASS) {
+      sessionStorage.setItem('ac_auth_v1', '1');
+      err.classList.remove('show');
+      input.classList.remove('error');
+      unlock(true);
+    } else {
+      input.classList.add('error');
+      err.classList.add('show');
+      input.value = '';
+      input.focus();
+      setTimeout(() => { input.classList.remove('error'); }, 1200);
+    }
+  }
+
+  document.getElementById('pw-input').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') handleLogin();
+    if (this.classList.contains('error')) {
+      this.classList.remove('error');
+      document.getElementById('pw-error').classList.remove('show');
+    }
+  });
+
+  function togglePwVis() {
+    const inp = document.getElementById('pw-input');
+    const ico = document.getElementById('eye-icon');
+    if (inp.type === 'password') {
+      inp.type = 'text';
+      ico.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>';
+    } else {
+      inp.type = 'password';
+      ico.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
+    }
+  }
+
+  checkAuth();
+
   /* ── CO-TERM PRICING (fixed: 1 Jul 2026 → 29 Jan 2027 = 213 days) ── */
   const ADDON_START    = new Date('2026-07-01');
   const CONTRACT_END   = new Date('2027-01-29');
